@@ -22,9 +22,6 @@ public class KryoJavaSerialization {
      */
     private final Kryo kryo = new Kryo();
 
-
-
-
     private Object serialize(AllTypes allTypes) throws Exception {
 
 
@@ -42,29 +39,22 @@ public class KryoJavaSerialization {
 
     private Object roundTrip(AllTypes alltype) throws Exception {
 
-
         final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-
         Output streamOut = new Output(outputStream);
         this.kryo.writeObject(streamOut, alltype);
         streamOut.close();
 
-
         final ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
 
         Input input = new Input(inputStream);
-
         return kryo.readObject(input, AllTypes.class);
     }
 
-
-
-    @GenerateMicroBenchmark
+    /*@GenerateMicroBenchmark
     @OutputTimeUnit( TimeUnit.SECONDS)
     public void serializeSmall(BlackHole bh) throws Exception {
         bh.consume(serialize(TestObjects.OBJECT));
-    }
+    }*/
 
     @GenerateMicroBenchmark
     @OutputTimeUnit(TimeUnit.SECONDS)
@@ -72,18 +62,15 @@ public class KryoJavaSerialization {
         bh.consume(roundTrip ( TestObjects.OBJECT ));
     }
 
-
-    @GenerateMicroBenchmark
+    /*@GenerateMicroBenchmark
     @OutputTimeUnit(TimeUnit.SECONDS)
     public void serializeBig(BlackHole bh) throws Exception {
         bh.consume(serialize(TestObjects.BIG_OBJECT));
-    }
+    }*/
 
     @GenerateMicroBenchmark
     @OutputTimeUnit(TimeUnit.SECONDS)
     public void roundTripBig(BlackHole bh) throws Exception {
         bh.consume(roundTrip ( TestObjects.BIG_OBJECT ));
     }
-
-
 }

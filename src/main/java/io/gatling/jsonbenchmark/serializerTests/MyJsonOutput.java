@@ -1,6 +1,5 @@
 package io.gatling.jsonbenchmark.serializerTests;
 
-import groovy.json.DateFormatThreadLocal;
 import groovy.json.JsonDelegate;
 import groovy.json.JsonException;
 import groovy.json.JsonLexer;
@@ -37,7 +36,7 @@ import org.codehaus.groovy.runtime.DefaultGroovyMethods;
  */
 public class MyJsonOutput {
 
-    private static final ThreadLocal<SimpleDateFormat> dateFormatter = new DateFormatThreadLocal();
+    private static final ThreadLocal<SimpleDateFormat> dateFormatter = new ThreadLocal<>();
 
     /**
      * Simply rewritten to Java with minor changes.

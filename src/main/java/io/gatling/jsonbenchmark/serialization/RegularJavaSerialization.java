@@ -1,6 +1,7 @@
 package io.gatling.jsonbenchmark.serialization;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import groovy.ui.SystemOutputInterceptor;
 import org.openjdk.jmh.annotations.GenerateMicroBenchmark;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.logic.BlackHole;
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Richard on 4/18/14.
  */
-public class JavaSerialization {
+public class RegularJavaSerialization {
 
 
     private Object serialize(AllTypes allTypes) throws Exception {
@@ -32,16 +33,13 @@ public class JavaSerialization {
 
     private Object roundTrip(AllTypes alltype) throws Exception {
 
-
         final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ObjectOutputStream serializer = new ObjectOutputStream(outputStream);
 
-
-
         serializer.writeObject(alltype);
 
-
-        final ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+        final byte[] bytes = outputStream.toByteArray();
+        final ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
 
         ObjectInputStream inputSerializer = new ObjectInputStream(inputStream);
         return inputSerializer.readObject ();
@@ -49,8 +47,8 @@ public class JavaSerialization {
 
 
 
-    @GenerateMicroBenchmark
-    @OutputTimeUnit( TimeUnit.SECONDS)
+    //@GenerateMicroBenchmark
+    //@OutputTimeUnit( TimeUnit.SECONDS)
     public void serializeSmall(BlackHole bh) throws Exception {
         bh.consume(serialize(TestObjects.OBJECT));
     }
@@ -62,8 +60,8 @@ public class JavaSerialization {
     }
 
 
-    @GenerateMicroBenchmark
-    @OutputTimeUnit(TimeUnit.SECONDS)
+    //@GenerateMicroBenchmark
+    //@OutputTimeUnit(TimeUnit.SECONDS)
     public void serializeBig(BlackHole bh) throws Exception {
         bh.consume(serialize(TestObjects.BIG_OBJECT));
     }
@@ -73,6 +71,4 @@ public class JavaSerialization {
     public void roundTripBig(BlackHole bh) throws Exception {
         bh.consume(roundTrip ( TestObjects.BIG_OBJECT ));
     }
-
-
 }

@@ -24,8 +24,6 @@ public class JacksonByteArraySerializer {
         return serializer.readValue (bytes,  AllTypes.class);
     }
 
-
-
     @GenerateMicroBenchmark
     @OutputTimeUnit( TimeUnit.SECONDS)
     public void serializeSmall(BlackHole bh) throws Exception {

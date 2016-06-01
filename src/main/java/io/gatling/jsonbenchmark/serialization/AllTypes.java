@@ -10,13 +10,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@JsonIgnoreProperties ("ignoreMe2")
+@JsonIgnoreProperties ({"ignoreMe2","ignoreMe3"})
 public class AllTypes implements Serializable {
 
-
-
     String ignoreMe3;
-
     String ignoreMe2;
 
     int myInt;
@@ -42,12 +39,9 @@ public class AllTypes implements Serializable {
 
     long someDate = new Date (  ).getTime ();
 
-
-
     AllTypes allType;
 
     List<AllTypes> allTypes = new ArrayList<> (  );
-
 
     public String getString2 () {
         return string2;
@@ -121,7 +115,6 @@ public class AllTypes implements Serializable {
         this.string = string;
     }
 
-
     public float getMyFloat () {
         return myFloat;
     }
@@ -137,7 +130,6 @@ public class AllTypes implements Serializable {
     public void setMyDouble ( double myDouble ) {
         this.myDouble = myDouble;
     }
-
 
     public BigDecimal getBigDecimal () {
         return bigDecimal;
@@ -180,7 +172,6 @@ public class AllTypes implements Serializable {
     public void setBar ( FooEnum bar ) {
         this.bar = bar;
     }
-
 
     @Override
     public boolean equals ( Object o ) {
